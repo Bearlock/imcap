@@ -1,3 +1,4 @@
+import _ from "lodash";
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -22,7 +23,9 @@ const mutations = {
     state.author = "";
   },
   saveIntake(state, { type, value }) {
-    state[type] = value;
+    if (type == "therapists") {
+      state[type] = _.filter(_.split(value, ","), therapist => !_.isEmpty(therapist));
+    } else state[type] = value;
   }
 }
 
