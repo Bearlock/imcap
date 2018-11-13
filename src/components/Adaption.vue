@@ -9,16 +9,15 @@
       <tr v-for="(attribute, aIndex) in adaptionAttributes" :key="aIndex">
         <td> {{ startCase(attribute) }} </td>
         <td v-for="(measure, mIndex) in measures" :key="mIndex">
-          <input v-if="measure != 'media'" :type="inputType(measure)" @change="saveScore($event, measure, attribute, 'adaption')">
-          <select v-else @change="saveScore($event, measure, attribute, 'adaption')">
+          <input v-if="measure == 'frequency' || measure == 'support'" :type="inputType(measure)" @change="saveScore($event, measure, attribute, 'adaption')">
+          <!--          <input v-if="measure != 'media'" :type="inputType(measure)" @change="saveScore($event, measure, attribute, 'adaption')">-->
+          <select v-else-if="measure == 'media'"  @change="saveScore($event, measure, attribute, 'adaption')">
             <option value="">Please select media</option>
-            <option>Instrument</option>
-            <option>Movement</option>
-            <option>Voice</option>
-            <option>Instrument, Movement</option>
-            <option>Insturment, Voice</option>
-            <option>Movement, Voice</option>
-            <option>Instrument, Movement, Voice</option>
+            <option v-for="(medium, mediumIndex) in media" :key="mediumIndex">{{ medium }}</option>
+          </select>
+          <select v-else @change="saveScore($event, measure, attribute, 'adaption')">
+            <option value="">Please select point of attention</option>
+            <option v-for="(point, pIndex) in points" :key="pIndex">{{ point }}</option>
           </select>
         </td>
       </tr>
@@ -44,6 +43,28 @@ import {
 } from "@/utils";
 
 export default {
+  data() {
+    return {
+      media: [
+        "Instrument",
+        "Movement",
+        "Voice",
+        "Instrument, Movement",
+        "Instrument, Voice",
+        "Instrument, Movement, Voice"
+      ],
+      points: [
+        "Visual therapist",
+        "Gestural therapist",
+        "Intstrumental play",
+        "Movement play",
+        "Vocal play",
+        "Instrumental music",
+        "Music movement",
+        "Music singing"
+      ]
+    }
+  },
   methods: {
     startCase,
     convertPoa,
@@ -156,22 +177,22 @@ export default {
       } = this;
       switch(adaptionFrequency.stops) {
         case 0: {
-          return `Lastly, ${firstName} seemed to display challenges stopping ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}`;
+          return `Lastly, ${firstName} seemed to display challenges stopping ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}.`;
         }
         case 1: {
-          return `Lastly, ${firstName} rarely exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}`;
+          return `Lastly, ${firstName} rarely exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}.`;
         }
         case 2: {
-          return `Lastly, ${firstName} occasionally exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}`;
+          return `Lastly, ${firstName} occasionally exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}.`;
         }
         case 3: {
-          return `Lastly, ${firstName} frequently exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}`;
+          return `Lastly, ${firstName} frequently exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}.`;
         }
         case 4: {
-          return `Lastly, ${firstName} often exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}`;
+          return `Lastly, ${firstName} often exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}.`;
         }
         case 5: {
-          return `Lastly, ${firstName} consistently exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}`;
+          return `Lastly, ${firstName} consistently exhibited the capacity to stop ${hisHer(sex)} ${mediaTypeMapping(adaptionMedia.stops)} play when the therapist stopped the music ${adaptionSupportSentence(adaptionSupport.stops)}.`;
         }
       }
     },

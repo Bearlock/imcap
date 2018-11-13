@@ -10,13 +10,13 @@ const heShe = sex => sex == "Male" ? "he" : "she";
 
 function mediaTypeMapping(media) {
   const mediaMap = {
-    "Instrument": "instrumental",
-    "Movement": "movement",
-    "Voice": "vocal",
-    "Instrument, Movement": "instrumental and movement",
-    "Instrument, Voice": "instrumental and vocal",
-    "Movement, Voice": "movement and vocal",
-    "Instrument, Movement, Voice": "instrumental, movement, and vocal"
+    "instrument": "instrumental",
+    "movement": "movement",
+    "voice": "vocal",
+    "instrument, movement": "instrumental and movement",
+    "instrument, voice": "instrumental and vocal",
+    "movement, voice": "movement and vocal",
+    "instrument, movement, voice": "instrumental, movement, and vocal"
   };
   return mediaMap[media];
 }
@@ -44,7 +44,7 @@ function supportType(type) {
 function saveScore({ target }, measure, attribute, type) {
   const score = (measure == "frequency" || measure =="support") 
     ? parseInt(target.value)
-    : target.value
+    : _.toLower(target.value)
   store.commit(`${type}/saveScore`, { measure, attribute, score });
 }
 
