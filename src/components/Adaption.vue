@@ -56,7 +56,7 @@ export default {
       points: [
         "Visual therapist",
         "Gestural therapist",
-        "Intstrumental play",
+        "Instrumental play",
         "Movement play",
         "Vocal play",
         "Instrumental music",
