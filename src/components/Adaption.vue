@@ -51,6 +51,7 @@ export default {
         "Voice",
         "Instrument, Movement",
         "Instrument, Voice",
+        "Movement, Voice",
         "Instrument, Movement, Voice"
       ],
       points: [
